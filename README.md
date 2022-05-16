@@ -1,2 +1,2 @@
-# decode-sensor-data-js
+# decode-sensor-data-sample-js
 sample javascript code to decode sensor data.
