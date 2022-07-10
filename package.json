@@ -1,0 +1,43 @@
+{
+  "name": "decode-sensor-data-sample",
+  "version": "1.0.0",
+  "description": "sample javascript code to decode sensor data.",
+  "main": "main.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest",
+    "test:nocoverage": "jest",
+    "lint:eslint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write .",
+    "fix": "npm run format && npm run lint:fix",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write .",
+      "eslint ."
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BraveGATE/decode-sensor-data-sample-js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BraveGATE/decode-sensor-data-sample-js/issues"
+  },
+  "homepage": "https://github.com/BraveGATE/decode-sensor-data-sample-js#readme",
+  "devDependencies": {
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.2",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
+  }
+}
