@@ -15,21 +15,25 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write .",
-      "eslint ."
+      "prettier --write",
+      "eslint"
     ]
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BraveGATE/decode-sensor-data-sample-js.git"
+    "url": "git+https://github.com/BraveGATE/decode-sensor-data-sample-nodejs.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Braveridge Co., Ltd.",
+  "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/BraveGATE/decode-sensor-data-sample-js/issues"
+    "url": "https://github.com/BraveGATE/decode-sensor-data-sample-nodejs/issues"
   },
-  "homepage": "https://github.com/BraveGATE/decode-sensor-data-sample-js#readme",
+  "homepage": "https://github.com/BraveGATE/decode-sensor-data-sample-nodejs#readme",
   "devDependencies": {
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
