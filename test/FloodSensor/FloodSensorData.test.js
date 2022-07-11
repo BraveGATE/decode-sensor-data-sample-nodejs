@@ -1,6 +1,8 @@
 'use stricts';
 
-const { FloodSensorData } = require('../../lib');
+'use stricts';
+
+const { FloodSensorData } = require('../../index');
 
 test('valid sensor data', () => {
   const sensorData = new FloodSensorData('AQEAYNx5RABgwEGh33lEAMi+QVM=');

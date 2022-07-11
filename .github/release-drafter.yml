@@ -1,0 +1,27 @@
+name-template: v$MAJOR.$MINOR.$PATCH
+tag-template: v$MAJOR.$MINOR.$PATCH
+template: |
+  # What's Changed
+  $CHANGES
+categories:
+  - title: 'Breaking Change'
+    label: 'Breaking'
+  - title: 'New Feature'
+    label: 'Feature'
+  - title: 'Enhancement'
+    label: 'Enhancement'
+  - title: 'Bug Fix'
+    label: 'BugFix'
+  - title: 'Refactoring'
+    label: 'Refactoring'
+  - title: 'Documentation'
+    label: 'Docs'
+  - title: 'Other changes'
+  - title: 'Dependency'
+    label: 'Dependency'
+    collapse-after: 5
+change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
+change-title-escapes: '\<*_&'
+
+exclude-labels:
+  - 'Release'

@@ -1,55 +1,102 @@
-name: publish decode-sensor-data
+name: publish
 
 env:
   CI: true
   TZ: 'Asia/Tokyo'
 
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - '!*'
+  workflow_dispatch:
 
 jobs:
-  publish:
-    name: Setup
+  setup:
+    name: setup
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    outputs:
+      version: ${{ env.VERSION }}
+
     steps:
       # checkout
       - name: checkout
         uses: actions/checkout@v2
       # node 14.x setup
       - name: setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
+          registry-url: https://npm.pkg.github.com
+
+      - name: set package version
+        run: node -p -e '`VERSION=${require("./package.json").version}`' >> $GITHUB_ENV
+      - name: check tag exists
+        uses: mukunku/tag-exists-action@v1.0.0
+        id: checkTag
+        with:
+          tag: v${{ env.VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    name: publish
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # checkout
+      - name: Checkout
+        uses: actions/checkout@v2
+      # node setup
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
           registry-url: https://npm.pkg.github.com
       # install node modules
-      - name: install node_modules
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
       # jest
-      - name: jest
-        run: npm run test
-      - name: uplocad test coverage
-        uses: actions/upload-artifact@v1
+      - name: Run test
+        uses: mattallty/jest-github-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: coverage
-          path: coverage
+          coverage-comment: false
+          test-command: 'npm run test'
       # publish pkg
       - name: publish
         run: npx can-npm-publish --verbose && npm publish || echo "No need to publish"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # set ver
-      - name: set version to env
-        run: node -p -e '`VERSION=${require("./package.json").version}`' >> $GITHUB_ENV
       # add tag that has version info
-      - name: add verion tag
+      - name: add version tag
         uses: pkgdeps/git-tag-action@v2
         with:
-          version: ${{ env.VERSION }}
+          version: ${{ needs.setup.outputs.version }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           github_repo: ${{ github.repository }}
           git_commit_sha: ${{ github.sha }}
           git_tag_prefix: 'v'
+
+  release-note:
+    name: release note
+    needs: [setup, publish]
+    runs-on: ubuntu-latest
+    steps:
+      # checkout
+      - name: checkout
+        uses: actions/checkout@v2
+      # node 16.x setup
+      - name: setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          registry-url: https://npm.pkg.github.com
+      # create release draft
+      - name: release drafter
+        uses: release-drafter/release-drafter@v5
+        with:
+          name: v${{ needs.setup.outputs.version }}
+          tag: v${{ needs.setup.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
