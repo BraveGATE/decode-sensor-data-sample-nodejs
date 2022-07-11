@@ -1,8 +1,9 @@
 {
   "configurations": [
     {
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/main.js",
+      "name": "Launch Sample Program",
+      "program": "${workspaceFolder}/sample/main.js",
+      "cwd": "${fileDirname}",
       "request": "launch",
       "console": "integratedTerminal",
       "runtimeExecutable": "node",

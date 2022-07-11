@@ -1,7 +1,7 @@
 const console = require('console');
 const fs = require('fs');
-const { FloodSensorData } = require('./lib');
-const { FloodSensorSetting } = require('./lib');
+const { FloodSensorData } = require('../index');
+const { FloodSensorSetting } = require('../index');
 
 function getSensorDataFromWebhook(webhookPath) {
   const webhook = fs.readFileSync(webhookPath);
