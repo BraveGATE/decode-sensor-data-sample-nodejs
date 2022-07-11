@@ -1,9 +1,10 @@
 {
-  "name": "decode-sensor-data-sample",
+  "name": "@bravegate/decode-sensor-data-sample",
   "version": "1.0.0",
-  "description": "sample javascript code to decode sensor data.",
-  "main": "main.js",
+  "description": "sample nodemodule to decode sensor data.",
+  "main": "index.js",
   "type": "commonjs",
+  "private": false,
   "scripts": {
     "test": "jest",
     "test:nocoverage": "jest",
@@ -20,7 +21,7 @@
     ]
   },
   "publishConfig": {
-    "access": "restricted",
+    "access": "public",
     "registry": "https://npm.pkg.github.com/"
   },
   "repository": {
