@@ -1,12 +1,11 @@
-name: pullrequest bravegate-outgoing
+name: pullrequest auto labels
 
 env:
   CI: true
   TZ: 'Asia/Tokyo'
 
 on:
-  pull_request_target:
-    types: [opened, synchronize]
+  pull_request:
 
 jobs:
   add-labels:
@@ -21,7 +20,6 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             });
-
             const definedLabels = ret.data.map(value => value.name.toLowerCase().trim());
 
             const commits = await github.rest.pulls.listCommits({
@@ -29,7 +27,6 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.payload.pull_request.number
             });
-
             const prefixes = [];
             commits.data.forEach(data => {
               const messagePrefix = data.commit.message.match(/\[.*?\]/g);
@@ -44,10 +41,8 @@ jobs:
                 });
               }
             });
-
             const labels = definedLabels.filter(label => 
                 prefixes.filter(prefix => label.startsWith(prefix)).length !== 0);
-
             if (labels && labels.length !== 0) {
               github.rest.issues.addLabels({
                 owner: context.repo.owner,
@@ -56,31 +51,3 @@ jobs:
                 labels
               });
             }
-
-  test:
-    name: Setup
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      # checkout
-      - name: checkout
-        uses: actions/checkout@v2
-      # node 14.x setup
-      - name: setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-          registry-url: https://npm.pkg.github.com
-      # install node modules
-      - name: install node_modules
-        run: npm install
-      # Bugfix node-jq
-      - name: Bugfix Cannot read file node_modules/node-jq/bin/jq
-        run: chmod 755 node_modules/node-jq/bin/jq
-      # jest
-      - name: test with coverage
-        uses: mattallty/jest-github-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          test-command: 'npm run test'
