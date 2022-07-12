@@ -2,7 +2,7 @@
   "configurations": [
     {
       "name": "Launch Sample Program",
-      "program": "${workspaceFolder}/sample/main.js",
+      "program": "${workspaceFolder}/examples/main.js",
       "cwd": "${fileDirname}",
       "request": "launch",
       "console": "integratedTerminal",

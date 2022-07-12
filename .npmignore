@@ -1,4 +1,9 @@
-.github
-spec/
+.eslintrc.yml
+.prettierrc
+jset.config.js
+.github/
+.husky/
+.vscode/
 test/
+examples/
 coverage/

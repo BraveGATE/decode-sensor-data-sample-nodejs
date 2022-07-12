@@ -93,6 +93,7 @@ jobs:
         with:
           node-version: 16.x
           registry-url: https://npm.pkg.github.com
+          scope: '@bravegate'
       # create release draft
       - name: release drafter
         uses: release-drafter/release-drafter@v5
