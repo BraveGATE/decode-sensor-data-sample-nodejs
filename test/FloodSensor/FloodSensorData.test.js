@@ -17,15 +17,13 @@ describe('valid sensor data', () => {
   it('check toString', () => {
     expect(s.toString()).toEqual(
       'FwVersion: 1.1.0\n' +
-      'WaterPressure: 999.443359375\n' +
-      'WaterTemperature: 24.046875\n' +
-      'AirPressure: 999.4942016601562\n' +
-      'AirTemperature: 23.84765625\n' +
-      'Battery: 83\n'
+        'WaterPressure: 999.443359375\n' +
+        'WaterTemperature: 24.046875\n' +
+        'AirPressure: 999.4942016601562\n' +
+        'AirTemperature: 23.84765625\n' +
+        'Battery: 83\n'
     );
-
   });
-
 });
 
 test('invalid sensor data', () => {
