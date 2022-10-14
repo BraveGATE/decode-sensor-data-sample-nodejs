@@ -18,6 +18,12 @@ jobs:
         node-version: [14.x, 16.x]
 
     steps:
+      - run: |
+          echo '1' $GITHUB_REF
+          echo '2' ${{ github.ref }}
+          echo '3' ${{ github.ref_name }}
+          echo '4' ${{ github.head_ref }}
+          echo '5' ${{ github.base_ref }}
       - name: Checkout
         uses: actions/checkout@v3
         with:
