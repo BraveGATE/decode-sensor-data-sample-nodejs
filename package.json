@@ -1,6 +1,6 @@
 {
   "name": "@bravegate/decode-sensor-data-sample",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "sample nodemodule to decode sensor data.",
   "main": "index.js",
   "type": "commonjs",
